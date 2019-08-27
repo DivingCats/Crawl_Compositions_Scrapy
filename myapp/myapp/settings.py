@@ -65,9 +65,9 @@ COOKIES_ENABLED = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'myapp.pipelines.MyappPipeline': 300,
+   # 'myapp.pipelines.MyappPipeline': 300,
 # Store scraped item in redis for post-processing. 分布式redispipeline
-#     'scrapy_redis.pipelines.RedisPipeline': 300,
+    'scrapy_redis.pipelines.RedisPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -94,13 +94,13 @@ ITEM_PIPELINES = {
 
 """ scrapy-redis配置 """
 # Enables scheduling storing requests queue in redis.
-# SCHEDULER = "scrapy_redis.scheduler.Scheduler"
-# SCHEDULER_PERSIST = True
-# # Ensure all spiders share same duplicates filter through redis.
-# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-#
-# REDIS_HOST = "192.168.99.103"
-# REDIS_PORT = "32769"
-# REDIS_PARAMS ={
-#     'password': '',  # 服务器的redis对应密码
-# }
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER_PERSIST = True
+# # # Ensure all spiders share same duplicates filter through redis.
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+REDIS_HOST = "192.168.99.103"
+REDIS_PORT = "32769"
+REDIS_PARAMS ={
+    'password': '',  # 服务器的redis对应密码
+}

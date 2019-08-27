@@ -43,19 +43,19 @@ class MyspiderRedisSpider(RedisSpider):
         for i in range(1, int(lastpage[-2])+1):
         # for i in range(3, 4):
             if i==1:
-                print("in first request")
-                print(firstpage)
+                # //print("in first request")
+                # print(firstpage)
                 yield Request(firstpage[0], callback=self.parse_list)
             else:
                 nexturl = response.request.url + "index_" + str(i) + ".shtml"
-                print("nexturl = "+nexturl)
+                # print("nexturl = "+nexturl)
                 yield Request(nexturl, callback = self.parse_list)
 
     #提取每页的文章链接并访问
     def parse_list(self, response):
         currentpagelist = response.xpath("//div[@class='artbox_l_t']/a/@href").extract()
         for i in range(0, len(currentpagelist)):
-            print("in paser_list")
+            # print("in paser_list")
             yield Request(currentpagelist[i], callback = self.parse_article)
 
     #提取文章内容页页面的信息
@@ -70,5 +70,5 @@ class MyspiderRedisSpider(RedisSpider):
         for i in rawdetail:
             item["articledetail"].append(i.replace('\r', '').replace('\n', '').replace('\t', ''))
         item["articleurl"] = response.request.url
-        print(item["articleurl"])
+        # print(item["articleurl"])
         return item
